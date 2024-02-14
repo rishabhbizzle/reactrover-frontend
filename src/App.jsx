@@ -11,8 +11,8 @@ function App() {
   return (
     <ThemeProvider defaultTheme = "dark"
     storageKey = "react">
-      {/* <LandingPage/> */}
-    <Home />
+      <LandingPage/>
+    {/* <Home /> */}
     </ThemeProvider>
   )
 }

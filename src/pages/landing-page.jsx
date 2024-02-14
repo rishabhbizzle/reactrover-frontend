@@ -1,28 +1,52 @@
-import { Button } from "@/components/ui/button"
-import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { SignInButton } from "@clerk/clerk-react"
+import { Button } from "@/components/ui/button";
+import {
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  Card,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import Container from "@/components/ui/container";
+import { Input } from "@/components/ui/input";
+import { SignInButton } from "@clerk/clerk-react";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen">
+      <Container>
+
       <nav className="flex justify-between items-center py-4 px-8 border-b border-gray-800">
-        <div>
-            RR
-        </div>
+        <div>RR</div>
         <div className="flex items-center space-x-4">
-        <SignInButton />
+          <SignInButton />
         </div>
       </nav>
       <header className="flex text-center py-24 h-screen">
-        <h1 className="text-8xl font-bold mb-6">Your fastest path to production</h1>
-        <p className="text-xl text-gray-400 mb-8">
-          Build, deploy your React application with just one click
-        </p>
-        <div className="space-x-4">
-          <Button className="">Get Started for Free</Button>
-          <Button variant="outline">Contact Sales</Button>
+        <div className="text-left">
+          <h1 className="text-8xl font-bold mb-6">
+            Your fastest path to production
+          </h1>
+          <p className="text-xl text-gray-400 mb-8">
+            Build, deploy your React application with just one click
+          </p>
+        </div>
+        <div className="w-[30%] h-full flex flex-col">
+          <div className="h-1/2">
+            <img
+              src="/vite.svg"
+              alt="hero"
+              className="w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="h-1/2">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+              alt="hero"
+              className="w-full h-full rounded-lg"
+            />
+          </div>
         </div>
       </header>
       {/* <section className=" py-16">
@@ -39,16 +63,17 @@ export default function LandingPage() {
         </div>
       </section> */}
       <section className="text-center py-16">
-        <h2 className="text-5xl font-bold mb-12">Click, click, done.</h2>
+        <h2 className="text-5xl font-bold mb-12">One Click Process</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
           <Card className="">
             <CardHeader>
               <CardTitle>Choose your service type</CardTitle>
-              <CardDescription>Run web apps, background workers, static sites, cron jobs, and more.</CardDescription>
+              <CardDescription>
+                Run web apps, background workers, static sites, cron jobs, and
+                more.
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              Test
-            </CardContent>
+            <CardContent>Test</CardContent>
             {/* <CardFooter>
               <Button className="w-full">Get Plan</Button>
             </CardFooter> */}
@@ -56,11 +81,12 @@ export default function LandingPage() {
           <Card className="bg-[#25262b]">
             <CardHeader>
               <CardTitle>Deploy in seconds</CardTitle>
-              <CardDescription>Build and run your apps with lightning speed and flexible configs.</CardDescription>
+              <CardDescription>
+                Build and run your apps with lightning speed and flexible
+                configs.
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              Test2
-            </CardContent>
+            <CardContent>Test2</CardContent>
             {/* <CardFooter>
               <Button className="  w-full">Deploy</Button>
             </CardFooter> */}
@@ -68,11 +94,12 @@ export default function LandingPage() {
           <Card className="bg-[#25262b]">
             <CardHeader>
               <CardTitle>Update automatically</CardTitle>
-              <CardDescription>Stay current with your code thanks to seamless, automatic deploys.</CardDescription>
+              <CardDescription>
+                Stay current with your code thanks to seamless, automatic
+                deploys.
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              test 3
-            </CardContent>
+            <CardContent>test 3</CardContent>
             {/* <CardFooter>
               <Button className="  w-full">Activate</Button>
             </CardFooter> */}
@@ -91,8 +118,10 @@ export default function LandingPage() {
           <p>Trusted by 750,000+ developers and teams</p>
         </div>
       </footer>
+      </Container>
+
     </div>
-  )
+  );
 }
 
 function BeanIcon(props) {
@@ -112,9 +141,8 @@ function BeanIcon(props) {
       <path d="M10.165 6.598C9.954 7.478 9.64 8.36 9 9c-.64.64-1.521.954-2.402 1.165A6 6 0 0 0 8 22c7.732 0 14-6.268 14-14a6 6 0 0 0-11.835-1.402Z" />
       <path d="M5.341 10.62a4 4 0 1 0 5.279-5.28" />
     </svg>
-  )
+  );
 }
-
 
 function CodepenIcon(props) {
   return (
@@ -136,9 +164,8 @@ function CodepenIcon(props) {
       <polyline points="2 15.5 12 8.5 22 15.5" />
       <line x1="12" x2="12" y1="2" y2="8.5" />
     </svg>
-  )
+  );
 }
-
 
 function EqualIcon(props) {
   return (
@@ -157,9 +184,8 @@ function EqualIcon(props) {
       <line x1="5" x2="19" y1="9" y2="9" />
       <line x1="5" x2="19" y1="15" y2="15" />
     </svg>
-  )
+  );
 }
-
 
 function FlagIcon(props) {
   return (
@@ -178,9 +204,8 @@ function FlagIcon(props) {
       <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
       <line x1="4" x2="4" y1="22" y2="15" />
     </svg>
-  )
+  );
 }
-
 
 function GemIcon(props) {
   return (
@@ -200,9 +225,8 @@ function GemIcon(props) {
       <path d="M11 3 8 9l4 13 4-13-3-6" />
       <path d="M2 9h20" />
     </svg>
-  )
+  );
 }
-
 
 function GithubIcon(props) {
   return (
@@ -221,9 +245,8 @@ function GithubIcon(props) {
       <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
       <path d="M9 18c-4.51 2-5-2-7-2" />
     </svg>
-  )
+  );
 }
-
 
 function LanguagesIcon(props) {
   return (
@@ -246,9 +269,8 @@ function LanguagesIcon(props) {
       <path d="m22 22-5-10-5 10" />
       <path d="M14 18h6" />
     </svg>
-  )
+  );
 }
-
 
 function LogInIcon(props) {
   return (
@@ -268,9 +290,8 @@ function LogInIcon(props) {
       <polyline points="10 17 15 12 10 7" />
       <line x1="15" x2="3" y1="12" y2="12" />
     </svg>
-  )
+  );
 }
-
 
 function PiIcon(props) {
   return (
@@ -290,9 +311,8 @@ function PiIcon(props) {
       <path d="M4 7c0-1.7 1.3-3 3-3h13" />
       <path d="M18 20c-1.7 0-3-1.3-3-3V4" />
     </svg>
-  )
+  );
 }
-
 
 function RocketIcon(props) {
   return (
@@ -313,9 +333,8 @@ function RocketIcon(props) {
       <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
       <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
     </svg>
-  )
+  );
 }
-
 
 function WavesIcon(props) {
   return (
@@ -335,5 +354,5 @@ function WavesIcon(props) {
       <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
       <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
     </svg>
-  )
+  );
 }
