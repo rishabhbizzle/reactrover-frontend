@@ -1,24 +1,11 @@
-import { Button } from "@/components/ui/button";
-import {
-  CardTitle,
-  CardDescription,
-  CardHeader,
-  CardContent,
-  CardFooter,
-  Card,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import Container from "@/components/ui/container";
-import { Input } from "@/components/ui/input";
 import { SignInButton, useUser } from "@clerk/clerk-react";
 import DeployForm from "../components/deploy";
 
 export default function LandingPage() {
-
   const user = useUser();
   console.log(user);
   return (
-    <div className="min-h-screen">
       <Container>
       <header className="flex text-center py-24 h-screen">
         <div className="text-left">
@@ -34,10 +21,8 @@ export default function LandingPage() {
         </div>
       </header>
       <div className="flex justify-center">
-
       <DeployForm />
       </div>
       </Container>
-    </div>
   );
 }
