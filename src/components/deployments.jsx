@@ -23,37 +23,46 @@ export default function Deployments({ user }) {
   }, []);
 
   return (
-    <div>
+    <div className="flex justify-center mt-5 w-full">
       <Card>
         <CardHeader>
-          <h1 className="text-3xl font-bold mb-1">Deployments</h1>
-          <div className="flex items-center text-sm space-x-1 mb-6">
+          <div className="flex items-center gap-2">
             <GitBranchIcon className="text-gray-400" />
-            <span>Continuously generated from</span>
-            <GithubIcon className="text-gray-400" />
-            <span className="font-medium">rishabhbizzle/SpotAnalytics-V2</span>
+            <h1 className="text-3xl font-bold mb-1">Deployments</h1>
           </div>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col space-y-4">
             {deployments.map((deployment) => (
-              <Card key={deployment.id}>
-                <div className="grid grid-cols-5 m-3">
-                  <div>{deployment?.projectId}</div>
-                  <div>
-                    <Badge>{deployment?.status}</Badge>
+              <Card key={deployment.id} className="flex gap-2">
+                <div className="grid grid-cols-7 m-3">
+                  <div className="col-span-2">{deployment?.projectId}</div>
+                  <div className="col-span-1">
+                    <Badge
+                      variant={
+                        deployment?.status === "FAIL"
+                          ? "destructive"
+                          : "default"
+                      }
+                    >
+                      {deployment?.status}
+                    </Badge>
                   </div>
-                  <div>
-                    {deployment?.gitUrl}
+                  <div className="flex gap-1 justify-center items-center col-span-3">
+                    <GithubIcon className=" text-gray-400" />
+                    <p>{deployment?.gitUrl}</p>
                   </div>
-                  <div className="text-right" >
+                  <div className="text-right col-span-1">
                     {new Date(deployment?.createdAt).toLocaleDateString()}
                   </div>
-                  <div className="text-right">
-                    <Button variant="outline">
-Show Logs
-                    </Button>
-                  </div>
+                  {/* <div className="text-right col-span-1">
+                    <Button variant="outline">Show Logs</Button>
+                  </div> */}
+                </div>
+                <div className="flex justify-center items-center mx-5">
+                  <Button variant="outline" size="sm">
+                    Show Logs
+                  </Button>
                 </div>
               </Card>
             ))}

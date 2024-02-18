@@ -22,7 +22,6 @@ export default function LandingPage() {
       <div className="flex justify-center">
         <SignedIn>
           <div className="flex w-full flex-col justify-center">
-
           <DeployForm user={user} />
           <Deployments user={user} />
           </div>
