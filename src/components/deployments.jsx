@@ -1,15 +1,16 @@
 import axios from "axios";
-import { GitBranchIcon, GithubIcon } from "lucide-react";
+import { GitBranchIcon, GithubIcon, Link } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Logs } from "./logs";
 
 export default function Deployments({ user }) {
   const [deployments, setDeployments] = useState([]);
   const fetchDeployments = async () => {
     await axios
-      .get(`http://localhost:3000/deployments/${user.id}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/deployments/${user.id}`)
       .then(({ data }) => {
         setDeployments(data.data);
       })
@@ -36,7 +37,15 @@ export default function Deployments({ user }) {
             {deployments.map((deployment) => (
               <Card key={deployment.id} className="flex gap-2">
                 <div className="grid grid-cols-7 m-3">
-                  <div className="col-span-2">{deployment?.projectId}</div>
+                  <div className="flex col-span-2 items-center">
+                    <a
+                      href={`https://${deployment?.projectId}.reactrover.tech`}
+                      target="_blank"
+                    >
+                      {deployment?.projectId}
+                    </a>
+                    <Link className="w-4 h-4 ml-1" />
+                  </div>
                   <div className="col-span-1">
                     <Badge
                       variant={
@@ -50,7 +59,10 @@ export default function Deployments({ user }) {
                   </div>
                   <div className="flex gap-1 justify-center items-center col-span-3">
                     <GithubIcon className=" text-gray-400" />
-                    <p>{deployment?.gitUrl}</p>
+                    <a
+                    href={deployment?.gitUrl}
+                    target="_blank"
+                    >{deployment?.gitUrl}</a>
                   </div>
                   <div className="text-right col-span-1">
                     {new Date(deployment?.createdAt).toLocaleDateString()}
@@ -60,9 +72,7 @@ export default function Deployments({ user }) {
                   </div> */}
                 </div>
                 <div className="flex justify-center items-center mx-5">
-                  <Button variant="outline" size="sm">
-                    Show Logs
-                  </Button>
+                  <Logs logs={deployment?.Log} />
                 </div>
               </Card>
             ))}

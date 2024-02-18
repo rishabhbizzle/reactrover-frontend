@@ -9,7 +9,7 @@ export default function LandingPage() {
   return (
     <Container>
       <header className="flex text-center py-24 h-screen">
-        <div className="text-left">
+        <div className="text-center">
           <h1 className="text-8xl font-bold mb-6">
             Your fastest path to production
           </h1>
@@ -17,7 +17,7 @@ export default function LandingPage() {
             Build, deploy your React application with just one click
           </p>
         </div>
-        <div className="w-[30%] h-full flex flex-col">Img</div>
+        {/* <div className="w-[30%] h-full flex flex-col">Img</div> */}
       </header>
       <div className="flex justify-center">
         <SignedIn>

@@ -18,7 +18,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "./ui/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_BASE_URL);
 
 export default function DeployForm({ user }) {
   const [repoURL, setURL] = useState("");
@@ -72,7 +72,7 @@ export default function DeployForm({ user }) {
       setLoading(false);
       return;
     }
-    const { data } = await axios.post(`http://localhost:3000/project`, {
+    const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/project`, {
       gitURL: repoURL,
       domain: projectId,
       type: type,
