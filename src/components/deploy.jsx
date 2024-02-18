@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Confetti from "react-confetti";
-import { Github, Loader2 } from "lucide-react";
+import { Github, Info, Loader2, Terminal } from "lucide-react";
 import axios from "axios";
 import {
   Card,
@@ -16,9 +16,9 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "./ui/use-toast";
-import { useUser } from "@clerk/clerk-react";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
-const socket = io("http://api-reactrover.ap-south-1.elasticbeanstalk.com");
+const socket = io("http://localhost:3000");
 
 export default function DeployForm({ user }) {
   const [repoURL, setURL] = useState("");
@@ -48,7 +48,11 @@ export default function DeployForm({ user }) {
       return false;
     }
     if (domain.includes(" ") || url.includes(" ")) {
-      alert("Domain cannot contain spaces or dot");
+      toast({
+        title: "Error",
+        description: "Domain and URL should not contain spaces",
+        variant: "destructive",
+      });
       return false;
     }
     if (!url.startsWith("https://github.com")) {
@@ -68,15 +72,12 @@ export default function DeployForm({ user }) {
       setLoading(false);
       return;
     }
-    const { data } = await axios.post(
-      `http://localhost:3000/project`,
-      {
-        gitURL: repoURL,
-        domain: projectId,
-        type: type,
-        userId: user.id,
-      }
-    );
+    const { data } = await axios.post(`http://localhost:3000/project`, {
+      gitURL: repoURL,
+      domain: projectId,
+      type: type,
+      userId: user.id,
+    });
 
     if (data && data.data) {
       const { projectSlug, url } = data.data;
@@ -107,7 +108,7 @@ export default function DeployForm({ user }) {
 
   return (
     <main className="flex justify-center items-center h-[100vh] w-full">
-      <Card className="w-[60%] flex flex-col justify-center">
+      <Card className="w-[90%] sm:w-[60%] flex flex-col justify-center">
         <CardHeader></CardHeader>
         <CardContent className="grid gap-6">
           <div className="grid gap-2">
@@ -133,7 +134,7 @@ export default function DeployForm({ user }) {
                 placeholder=""
               />
             </div>
-            <p>.reactrover.live</p>
+            <p>.reactrover.tech</p>
           </div>
           <RadioGroup
             value={type}
@@ -165,17 +166,24 @@ export default function DeployForm({ user }) {
             </div>
           </RadioGroup>
           {deployPreviewURL && (
-            <div className="mt-2 py-4 px-2 rounded-lg">
+            <div className="flex flex-col gap-4 mt-2 py-4 px-2 rounded-lg">
               <p className="">
                 Preview URL{" "}
                 <a
                   target="_blank"
-                  className="text-sky-400 bg-sky-950 px-3 py-2 rounded-lg "
+                  className="bg-sky-950 px-3 py-2 rounded-lg "
                   href={deployPreviewURL}
                 >
                   {deployPreviewURL}
                 </a>
               </p>
+              <Alert>
+                <Info className="h-4 w-4" />
+                <AlertTitle>Heads up!</AlertTitle>
+                <AlertDescription>
+                  This may take a few minutes to build and deploy. Check logs for more details.
+                </AlertDescription>
+              </Alert>
             </div>
           )}
 
