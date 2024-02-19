@@ -24,7 +24,7 @@ export default function Deployments({ user }) {
   }, []);
 
   return (
-    <div className="flex justify-center mt-5 w-full">
+    <div className="flex justify-center mt-16 w-full mb-16">
       <Card>
         <CardHeader>
           <div className="flex items-center gap-2">
@@ -36,8 +36,8 @@ export default function Deployments({ user }) {
           <div className="flex flex-col space-y-4">
             {deployments.map((deployment) => (
               <Card key={deployment.id} className="flex gap-2">
-                <div className="grid grid-cols-7 m-3">
-                  <div className="flex col-span-2 items-center">
+                <div className="grid grid-cols-1 gap-4 sm:gap-2 sm:grid-cols-7 m-3">
+                  <div className="flex sm:col-span-2 items-center">
                     <a
                       href={`https://${deployment?.projectId}.reactrover.tech`}
                       target="_blank"
@@ -46,7 +46,7 @@ export default function Deployments({ user }) {
                     </a>
                     <Link className="w-4 h-4 ml-1" />
                   </div>
-                  <div className="col-span-1">
+                  <div className="sm:col-span-1">
                     <Badge
                       variant={
                         deployment?.status === "FAIL"
@@ -57,14 +57,15 @@ export default function Deployments({ user }) {
                       {deployment?.status}
                     </Badge>
                   </div>
-                  <div className="flex gap-1 justify-center items-center col-span-3">
-                    <GithubIcon className=" text-gray-400" />
+                  <div className="flex gap-1 justify-center items-center sm:col-span-3">
+                    <GithubIcon className="w-14 sm:w-5 text-gray-400" />
                     <a
+                    className="truncate"
                     href={deployment?.gitUrl}
                     target="_blank"
                     >{deployment?.gitUrl}</a>
                   </div>
-                  <div className="text-right col-span-1">
+                  <div className="sm:text-right sm:col-span-1">
                     {new Date(deployment?.createdAt).toLocaleDateString()}
                   </div>
                   {/* <div className="text-right col-span-1">

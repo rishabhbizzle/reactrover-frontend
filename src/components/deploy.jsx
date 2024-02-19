@@ -107,7 +107,7 @@ export default function DeployForm({ user }) {
   }, [handleSocketIncommingMessage]);
 
   return (
-    <main className="flex justify-center items-center w-full">
+    <main className="flex justify-center items-center w-full mb-10">
       <Card className="w-[90%] sm:w-[60%] flex flex-col justify-center">
         <CardHeader></CardHeader>
         <CardContent className="grid gap-6">
