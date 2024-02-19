@@ -1,7 +1,9 @@
 import Container from "@/components/ui/container";
-import { SignedOut, SignedIn, useUser } from "@clerk/clerk-react";
+import { SignedOut, SignedIn, useUser, SignInButton } from "@clerk/clerk-react";
 import DeployForm from "../components/deploy";
 import Deployments from "@/components/deployments";
+import { Button } from "@/components/ui/button";
+import { LogIn } from "lucide-react";
 
 export default function LandingPage() {
   const { user } = useUser();
@@ -9,28 +11,29 @@ export default function LandingPage() {
   return (
     <Container>
       <header className="flex text-center py-24 h-screen">
-        <div className="text-center">
-          <h1 className="text-8xl font-bold mb-6">
-            Your fastest path to production
+        <div className="text-center flex flex-col gap-6">
+          <h1 className="text-5xl sm:text-8xl font-bold mb-6">
+            Your fastest path to deployment
           </h1>
           <p className="text-xl text-gray-400 mb-8">
             Build, deploy your React application with just one click
           </p>
+          <div>
+            <SignedOut>
+              <SignInButton>
+                <Button><LogIn className="h-5 w-5 mr-2" />Sign in</Button>
+              </SignInButton>
+            </SignedOut>
+          </div>
         </div>
-        {/* <div className="w-[30%] h-full flex flex-col">Img</div> */}
       </header>
-      <div className="flex justify-center">
+      <div className="">
         <SignedIn>
           <div className="flex w-full flex-col justify-center">
-          <DeployForm user={user} />
-          <Deployments user={user} />
+            <DeployForm user={user} />
+            <Deployments user={user} />
           </div>
         </SignedIn>
-        <SignedOut>
-          <div>
-            <p>Sign in to deploy your app</p>
-          </div>
-        </SignedOut>
       </div>
     </Container>
   );
