@@ -77,6 +77,7 @@ export default function DeployForm({ user }) {
       domain: projectId,
       type: type,
       userId: user.id,
+      envVariables: [{ key: "VITE_TEST", value: "27277272ff" }],
     });
 
     if (data && data.data) {
