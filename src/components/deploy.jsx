@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Confetti from "react-confetti";
-import { Github, Info, Loader2, Terminal } from "lucide-react";
+import { Github, Info, Loader2, Plus, Terminal, Trash, X } from "lucide-react";
 import axios from "axios";
 import {
   Card,
@@ -28,6 +28,7 @@ export default function DeployForm({ user }) {
   const [deployPreviewURL, setDeployPreviewURL] = useState(null);
   const logContainerRef = useRef(null);
   const [type, setType] = useState(null);
+  const [envVariables, setEnvVariables] = useState([]); // {key: "VITE_TEST", value: "27277272ff"}
 
   const { toast } = useToast();
   const isValidURL = useMemo(() => {
@@ -72,13 +73,16 @@ export default function DeployForm({ user }) {
       setLoading(false);
       return;
     }
-    const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/project`, {
-      gitURL: repoURL,
-      domain: projectId,
-      type: type,
-      userId: user.id,
-      envVariables: [{ key: "VITE_TEST", value: "27277272ff" }],
-    });
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/project`,
+      {
+        gitURL: repoURL,
+        domain: projectId,
+        type: type,
+        userId: user.id,
+        envVariables: envVariables,
+      }
+    );
 
     if (data && data.data) {
       const { projectSlug, url } = data.data;
@@ -90,7 +94,7 @@ export default function DeployForm({ user }) {
       console.log(`Subscribing to logs:${projectSlug}`);
       socket.emit("subscribe", `logs:${projectSlug}`);
     }
-  }, [projectId, repoURL, type]);
+  }, [projectId, repoURL, type, envVariables]);
 
   const handleSocketIncommingMessage = useCallback((message) => {
     console.log(`[Incomming Socket Message]:`, message);
@@ -106,6 +110,24 @@ export default function DeployForm({ user }) {
       socket.off("message", handleSocketIncommingMessage);
     };
   }, [handleSocketIncommingMessage]);
+
+  const handleEnvChange = (value, index, type) => {
+    setEnvVariables((prev) => {
+      const newEnv = [...prev];
+      newEnv[index][type] = value;
+      console.log(newEnv);
+      return newEnv;
+    });
+  };
+
+  const handleRemoveEnv = (index) => {
+    setEnvVariables((prev) => {
+      const newEnv = [...prev];
+      newEnv.splice(index, 1);
+      console.log(newEnv);
+      return newEnv;
+    });
+  };
 
   return (
     <main className="flex justify-center items-center w-full mb-10">
@@ -166,6 +188,45 @@ export default function DeployForm({ user }) {
               </Label>
             </div>
           </RadioGroup>
+          <div>
+            <Label htmlFor="env">Environment Variables</Label>
+            <div className="">
+              {envVariables.map((env, i) => (
+                <div className="flex flex-col sm:flex-row mx-2 my-3 gap-2">
+                  <Input
+                    value={env.key}
+                    placeholder="Key"
+                    onChange={(e) => handleEnvChange(e.target.value, i, "key")}
+                  />
+                  <Input
+                    value={env?.value}
+                    placeholder="Value"
+                    onChange={(e) =>
+                      handleEnvChange(e.target.value, i, "value")
+                    }
+                  />
+                  <div className="flex justify-end">
+                    <Button
+                      variant="outline"
+                      onClick={() => handleRemoveEnv(i)}
+                      size="icon"
+                    >
+                      <Trash className="w-5 h-5" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-end">
+              <Button
+                variant="secondary"
+                onClick={() => setEnvVariables((prev) => [...prev, {}])}
+              >
+                <Plus className="w-4 h-4 mr-2" /> Add Env Variables
+              </Button>
+            </div>
+          </div>
+
           {deployPreviewURL && (
             <div className="flex flex-col gap-4 mt-2 py-4 px-2 rounded-lg">
               <p className="">
@@ -182,7 +243,8 @@ export default function DeployForm({ user }) {
                 <Info className="h-4 w-4" />
                 <AlertTitle>Heads up!</AlertTitle>
                 <AlertDescription>
-                  This may take a few minutes to build and deploy. Check logs for more details.
+                  This may take a few minutes to build and deploy. Check logs
+                  for more details.
                 </AlertDescription>
               </Alert>
             </div>
