@@ -189,7 +189,9 @@ export default function DeployForm({ user }) {
             </div>
           </RadioGroup>
           <div>
+            {envVariables.length > 0 && (
             <Label htmlFor="env">Environment Variables</Label>
+            )}
             <div className="">
               {envVariables.map((env, i) => (
                 <div className="flex flex-col sm:flex-row mx-2 my-3 gap-2">
