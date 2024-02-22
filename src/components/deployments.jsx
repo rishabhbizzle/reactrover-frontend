@@ -6,7 +6,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Logs } from "./logs";
 
-export default function Deployments({ user }) {
+export default function Deployments({ user, reRender, setReRender}) {
   const [loading, setLoading] = useState(false);
   const [deployments, setDeployments] = useState([]);
   const fetchDeployments = async () => {
@@ -26,7 +26,7 @@ export default function Deployments({ user }) {
 
   useEffect(() => {
     fetchDeployments();
-  }, []);
+  }, [reRender]);
 
   return (
     <div className="flex justify-center mt-16 w-full mb-16">

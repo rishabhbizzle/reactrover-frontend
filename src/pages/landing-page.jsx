@@ -9,6 +9,7 @@ import reactLogo from './../assets/react.svg'
 
 export default function LandingPage() {
   const { user } = useUser();
+  const [reRender, setReRender] = useState(false);
 
   return (
     <Container>
@@ -36,8 +37,8 @@ export default function LandingPage() {
       <div className="">
         <SignedIn>
           <div className="flex w-full flex-col justify-center">
-            <DeployForm user={user} />
-            <Deployments user={user} />
+            <DeployForm user={user} reRender={reRender} setReRender={setReRender} />
+            <Deployments user={user} reRender={reRender} setReRender={setReRender} />
           </div>
         </SignedIn>
       </div>

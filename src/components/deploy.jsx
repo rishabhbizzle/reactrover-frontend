@@ -20,7 +20,7 @@ import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
 const socket = io(import.meta.env.VITE_BASE_URL);
 
-export default function DeployForm({ user }) {
+export default function DeployForm({ user, reRender, setReRender}) {
   const [repoURL, setURL] = useState("");
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -93,6 +93,7 @@ export default function DeployForm({ user }) {
       setDeployPreviewURL(url);
       console.log(`Subscribing to logs:${projectSlug}`);
       socket.emit("subscribe", `logs:${projectSlug}`);
+      setReRender((prev) => !prev);
     }
   }, [projectId, repoURL, type, envVariables]);
 
@@ -100,6 +101,7 @@ export default function DeployForm({ user }) {
     console.log(`[Incomming Socket Message]:`, message);
     const log = JSON.parse(message);
     setLogs((prev) => [...prev, log]);
+    setReRender((prev) => !prev);
     // logContainerRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
