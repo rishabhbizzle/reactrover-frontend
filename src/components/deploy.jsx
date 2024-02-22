@@ -100,7 +100,7 @@ export default function DeployForm({ user }) {
     console.log(`[Incomming Socket Message]:`, message);
     const log = JSON.parse(message);
     setLogs((prev) => [...prev, log]);
-    logContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+    // logContainerRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   useEffect(() => {
