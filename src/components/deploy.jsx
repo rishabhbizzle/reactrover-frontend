@@ -20,7 +20,7 @@ import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
 const socket = io(import.meta.env.VITE_BASE_URL);
 
-export default function DeployForm({ user, reRender, setReRender}) {
+export default function DeployForm({ user, reRender, setReRender }) {
   const [repoURL, setURL] = useState("");
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,6 +60,24 @@ export default function DeployForm({ user, reRender, setReRender}) {
       toast({
         title: "Error",
         description: "URL should be a valid Github Repository URL",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    if (domain !== domain.toLowerCase()) {
+      toast({
+        title: "Error",
+        description: "Domain should be in lowercase",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    if (!/^[a-zA-Z0-9]+$/.test(domain)) {
+      toast({
+        title: "Error",
+        description: "Domain should contain only alphanumeric characters",
         variant: "destructive",
       });
       return false;
@@ -192,7 +210,7 @@ export default function DeployForm({ user, reRender, setReRender}) {
           </RadioGroup>
           <div>
             {envVariables.length > 0 && (
-            <Label htmlFor="env">Environment Variables</Label>
+              <Label htmlFor="env">Environment Variables</Label>
             )}
             <div className="">
               {envVariables.map((env, i) => (
